@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Амино — архитектура и интерьеры</title>
+  <meta name="description" content="Архитектурное бюро: проекты частных домов, дизайн интерьеров, реконструкция и авторский надзор.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="#top">Амино</a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="#projects">Проекты</a>
+    <a href="#services">Услуги</a>
+    <a href="#process">Как работаем</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+  <a class="btn btn-small" href="#contact">Обсудить проект</a>
+</header>
+
+<main id="top">
+
+  <!-- Первый экран: план дома, который прорисовывается при загрузке -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title">Амино</h1>
+      <p class="hero-lead">Проектируем дома и интерьеры, в&nbsp;которых удобно жить. От&nbsp;первого обмера до&nbsp;последней розетки на&nbsp;объекте.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Обсудить проект</a>
+        <a class="link" href="#projects">Смотреть проекты</a>
+      </div>
+    </div>
+
+    <figure class="hero-plan" aria-label="План одноэтажного дома: гостиная-кухня, спальня, детская, холл и санузел">
+      <svg viewBox="0 0 600 420" class="plan" role="img">
+        <!-- размерные линии -->
+        <g class="dim">
+          <path d="M40 16 H560 M40 10 V22 M560 10 V22"/>
+          <path d="M16 40 V380 M10 40 H22 M10 380 H22"/>
+          <text x="300" y="11" text-anchor="middle">12 400</text>
+          <text x="11" y="210" text-anchor="middle" transform="rotate(-90 11 210)">8 600</text>
+        </g>
+        <!-- наружные стены -->
+        <rect class="wall-out draw" x="40" y="40" width="520" height="340"/>
+        <!-- окна -->
+        <g class="window">
+          <rect x="120" y="36" width="100" height="8"/><path d="M120 40 H220"/>
+          <rect x="380" y="36" width="100" height="8"/><path d="M380 40 H480"/>
+          <rect x="556" y="100" width="8" height="70"/><path d="M560 100 V170"/>
+          <rect x="80" y="376" width="80" height="8"/><path d="M80 380 H160"/>
+          <rect x="36" y="90" width="8" height="90"/><path d="M40 90 V180"/>
+          <rect x="278" y="376" width="54" height="8" class="gap"/>
+        </g>
+        <!-- внутренние стены -->
+        <path class="wall-in draw" d="M300 40 V230 M40 230 H230 M290 230 H330 M370 230 H560 M200 230 V250 M200 290 V380 M420 230 V250 M420 290 V380"/>
+        <!-- двери -->
+        <path class="door draw" d="M330 230 V190 A40 40 0 0 1 370 230 M200 290 H160 A40 40 0 0 1 200 250 M420 290 H460 A40 40 0 0 0 420 250 M280 380 V330 A50 50 0 0 1 330 380"/>
+        <!-- мебель -->
+        <g class="furniture draw">
+          <rect x="66" y="160" width="150" height="44" rx="6"/>
+          <path d="M66 172 H216"/>
+          <circle cx="256" cy="106" r="24"/>
+          <path d="M48 52 H140 V76 H48"/>
+          <rect x="390" y="70" width="130" height="120" rx="3"/>
+          <rect x="398" y="78" width="52" height="24" rx="4"/>
+          <rect x="460" y="78" width="52" height="24" rx="4"/>
+          <rect x="56" y="300" width="56" height="70" rx="3"/>
+          <rect x="474" y="296" width="70" height="72" rx="14"/>
+          <circle cx="448" cy="356" r="10"/>
+        </g>
+        <!-- подписи помещений -->
+        <g class="room">
+          <text x="170" y="122">Гостиная-кухня</text><text x="170" y="140" class="area">38,6 м²</text>
+          <text x="455" y="206">Спальня</text><text x="455" y="221" class="area">22,4 м²</text>
+          <text x="120" y="262">Детская</text><text x="120" y="280" class="area">14,2 м²</text>
+          <text x="310" y="300">Холл</text><text x="310" y="318" class="area">12,1 м²</text>
+          <text x="490" y="262">Санузел</text><text x="490" y="280" class="area">7,6 м²</text>
+        </g>
+      </svg>
+
+      <table class="stamp" aria-label="Штамп чертежа">
+        <tr><td>Бюро</td><td>Амино</td></tr>
+        <tr><td>Объект</td><td>Дом в Репино</td></tr>
+        <tr><td>Площадь</td><td>94,9 м²</td></tr>
+        <tr><td>Масштаб</td><td>1:100</td></tr>
+      </table>
+    </figure>
+  </section>
+
+  <!-- Проекты -->
+  <section class="section" id="projects">
+    <h2 class="section-title">Проекты</h2>
+    <p class="section-lead">Частные дома, квартиры и&nbsp;общественные пространства. По&nbsp;каждому объекту можно посмотреть чертежи и&nbsp;фотографии после реализации.</p>
+
+    <div class="projects">
+      <article class="project p-wide">
+        <div class="project-img">
+          <svg viewBox="0 0 400 260" role="img" aria-label="Фасад двухэтажного дома с двускатной крышей">
+            <path class="ln" d="M20 230 H380"/>
+            <path class="ln hatch" d="M30 238 l-10 10 M60 238 l-10 10 M90 238 l-10 10 M120 238 l-10 10 M150 238 l-10 10 M180 238 l-10 10 M210 238 l-10 10 M240 238 l-10 10 M270 238 l-10 10 M300 238 l-10 10 M330 238 l-10 10 M360 238 l-10 10"/>
+            <path class="ln thick" d="M90 230 V110 L200 40 L310 110 V230"/>
+            <path class="ln" d="M70 122 L200 32 L330 122"/>
+            <rect class="ln" x="118" y="130" width="44" height="54"/>
+            <rect class="ln" x="238" y="130" width="44" height="54"/>
+            <path class="ln" d="M140 130 V184 M260 130 V184"/>
+            <rect class="ln" x="180" y="164" width="40" height="66"/>
+            <circle class="ln" cx="200" cy="88" r="14"/>
+            <path class="ln thin" d="M310 180 H360 V230 M330 180 V230"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <h3>Дом в Репино</h3>
+          <p>Частный дом из клееного бруса для семьи с двумя детьми. Архитектура, интерьеры, ландшафт.</p>
+          <dl><dt>Площадь</dt><dd>186 м²</dd><dt>Год</dt><dd>2025</dd></dl>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-img">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Перспектива комнаты с окном и подвесным светильником">
+            <rect class="ln" x="130" y="90" width="140" height="110"/>
+            <path class="ln" d="M20 20 L130 90 M380 20 L270 90 M20 280 L130 200 M380 280 L270 200"/>
+            <rect class="ln" x="160" y="108" width="80" height="70"/>
+            <path class="ln thin" d="M200 108 V178 M160 143 H240"/>
+            <path class="ln" d="M200 20 V60 M184 60 H216 L210 74 H190 Z"/>
+            <path class="ln thin" d="M60 240 H190 V216 H60 Z M70 240 V262 M180 240 V262"/>
+            <path class="ln thin" d="M300 200 V250 L340 266 V214 Z"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <h3>Квартира на Петроградской</h3>
+          <p>Перепланировка и интерьер квартиры в доходном доме 1910 года. Сохранили лепнину и печь.</p>
+          <dl><dt>Площадь</dt><dd>112 м²</dd><dt>Год</dt><dd>2024</dd></dl>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-img">
+          <svg viewBox="0 0 400 300" role="img" aria-label="План кафе с расстановкой столов">
+            <rect class="ln thick" x="30" y="30" width="340" height="240"/>
+            <path class="ln" d="M30 200 H140 M140 200 V270"/>
+            <path class="ln" d="M220 30 V90 H370"/>
+            <g class="ln thin">
+              <circle cx="80" cy="80" r="16"/><circle cx="150" cy="80" r="16"/>
+              <circle cx="80" cy="140" r="16"/><circle cx="150" cy="140" r="16"/>
+              <circle cx="230" cy="150" r="16"/><circle cx="300" cy="150" r="16"/>
+              <circle cx="230" cy="215" r="16"/><circle cx="300" cy="215" r="16"/>
+            </g>
+            <path class="ln" d="M240 270 V240 A30 30 0 0 1 270 270"/>
+          </svg>
+        </div>
+        <div class="project-info">
+          <h3>Кофейня «Подвал»</h3>
+          <p>Интерьер кофейни на 32 места в полуподвальном помещении. Свет, акустика, мебель на заказ.</p>
+          <dl><dt>Площадь</dt><dd>84 м²</dd><dt>Год</dt><dd>2024</dd></dl>
+        </div>
+      </article>
+
+      <article class="project p-wide">
+        <div class="project-img">
+          <svg viewBox="0 0 400 260" role="img" aria-label="Фасад исторического здания с арочными окнами">
+            <path class="ln" d="M20 230 H380"/>
+            <path class="ln thick" d="M50 230 V60 H350 V230"/>
+            <path class="ln" d="M40 60 H360 M40 50 H360 V60 M40 50 V60 M50 150 H350"/>
+            <g class="ln">
+              <path d="M80 130 V96 A20 20 0 0 1 120 96 V130 Z"/>
+              <path d="M150 130 V96 A20 20 0 0 1 190 96 V130 Z"/>
+              <path d="M210 130 V96 A20 20 0 0 1 250 96 V130 Z"/>
+              <path d="M280 130 V96 A20 20 0 0 1 320 96 V130 Z"/>
+              <path d="M80 210 V176 A20 20 0 0 1 120 176 V210 Z"/>
+              <path d="M170 230 V180 A30 30 0 0 1 230 180 V230"/>
+              <path d="M280 210 V176 A20 20 0 0 1 320 176 V210 Z"/>
+            </g>
+          </svg>
+        </div>
+        <div class="project-info">
+          <h3>Особняк на Васильевском</h3>
+          <p>Реконструкция здания XIX века под офис. Согласование с КГИОП, усиление перекрытий, новые инженерные сети.</p>
+          <dl><dt>Площадь</dt><dd>640 м²</dd><dt>Год</dt><dd>2023</dd></dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Услуги -->
+  <section class="section" id="services">
+    <h2 class="section-title">Услуги</h2>
+    <div class="services">
+      <div class="service">
+        <h3>Архитектурный проект дома</h3>
+        <p>Планировки, фасады, конструктивные решения и&nbsp;инженерия. Комплект чертежей, по&nbsp;которому строитель построит дом без догадок.</p>
+        <p class="meta">от 3 месяцев</p>
+      </div>
+      <div class="service">
+        <h3>Дизайн интерьера</h3>
+        <p>Планировка, свет, материалы, мебель и&nbsp;смета. Подбираем всё до&nbsp;конкретного артикула и&nbsp;магазина.</p>
+        <p class="meta">от 2 месяцев</p>
+      </div>
+      <div class="service">
+        <h3>Реконструкция и перепланировка</h3>
+        <p>Обследуем здание, проектируем изменения и&nbsp;помогаем согласовать их с&nbsp;надзорными органами.</p>
+        <p class="meta">по объекту</p>
+      </div>
+      <div class="service">
+        <h3>Авторский надзор</h3>
+        <p>Выезжаем на&nbsp;объект, проверяем, что строят по&nbsp;проекту, и&nbsp;решаем вопросы с&nbsp;подрядчиками на&nbsp;месте.</p>
+        <p class="meta">до сдачи объекта</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как работаем: настоящая последовательность, поэтому с номерами -->
+  <section class="section" id="process">
+    <h2 class="section-title">Как работаем</h2>
+    <ol class="process">
+      <li>
+        <h3>Знакомство и обмер</h3>
+        <p>Встречаемся, обсуждаем задачу и&nbsp;бюджет. Выезжаем на&nbsp;участок или объект и&nbsp;делаем обмеры.</p>
+      </li>
+      <li>
+        <h3>Концепция</h3>
+        <p>Показываем 2–3 варианта планировки и&nbsp;настроения. Вместе выбираем направление.</p>
+      </li>
+      <li>
+        <h3>Рабочий проект</h3>
+        <p>Готовим полный комплект чертежей, спецификации и&nbsp;смету.</p>
+      </li>
+      <li>
+        <h3>Реализация</h3>
+        <p>Ведём авторский надзор и&nbsp;следим, чтобы результат совпал с&nbsp;проектом.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- О бюро -->
+  <section class="section about">
+    <h2 class="section-title">О бюро</h2>
+    <div class="about-body">
+      <p class="about-quote">Хороший дом начинается не&nbsp;с&nbsp;фасада, а&nbsp;с&nbsp;того, где вы утром пьёте кофе.</p>
+      <p>Мы небольшое бюро: архитектор, дизайнер интерьеров и&nbsp;инженер. Ведём одновременно не&nbsp;больше пяти объектов, поэтому каждым занимаемся сами, без передачи стажёрам.</p>
+      <p>Работаем в&nbsp;Санкт-Петербурге и&nbsp;Ленинградской области, удалённо — по&nbsp;всей России.</p>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="section contact" id="contact">
+    <h2 class="contact-title">Расскажите о&nbsp;своём объекте</h2>
+    <p class="section-lead">Напишите, что хотите построить или переделать. Ответим в&nbsp;течение дня и&nbsp;предложим время для встречи.</p>
+    <div class="contact-links">
+      <a class="btn" href="https://t.me/">Написать в Telegram</a>
+      <a class="link" href="mailto:hello@example.com">hello@example.com</a>
+      <a class="link" href="tel:+70000000000">+7 000 000-00-00</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>© <span id="year">2026</span> Амино</span>
+  <span>Архитектура и интерьеры</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

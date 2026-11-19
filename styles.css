@@ -1,0 +1,298 @@
+/* Амино — стили. Идея: страница как лист архитектурного чертежа.
+   Палитра: бумага, графит, карандашная серая линия и синий архитектурный карандаш. */
+
+:root {
+  --paper: #ECEEEA;
+  --paper-2: #E2E5DF;
+  --graphite: #22272E;
+  --pencil: #8B928B;
+  --cobalt: #2747C9;
+  --cobalt-soft: rgba(39, 71, 201, .14);
+
+  --font: "Commissioner", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 300; line-height: 1.1; }
+p { margin: 0; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+
+/* ---------- Верхняя панель ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 2rem;
+  padding: 14px var(--gutter);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+.logo { font-weight: 500; font-size: 1.15rem; text-decoration: none; letter-spacing: -.01em; }
+.nav { display: flex; gap: 1.75rem; margin-left: auto; }
+.nav a { text-decoration: none; font-size: .95rem; color: var(--graphite); }
+.nav a:hover { color: var(--cobalt); }
+
+/* ---------- Кнопки и ссылки ---------- */
+.btn {
+  display: inline-block;
+  padding: .85em 1.6em;
+  background: var(--cobalt);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1rem;
+  transition: background .2s;
+}
+.btn:hover { background: var(--graphite); }
+.btn-small { padding: .55em 1.1em; font-size: .9rem; }
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .3em;
+  text-decoration-color: var(--pencil);
+}
+.link:hover { color: var(--cobalt); text-decoration-color: var(--cobalt); }
+
+/* ---------- Первый экран ---------- */
+.hero {
+  max-width: var(--max); margin: 0 auto;
+  min-height: calc(100svh - 64px);
+  padding: 4vh var(--gutter) 6vh;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: center;
+}
+.hero-title {
+  font-weight: 200;
+  font-size: clamp(4.5rem, 13vw, 13rem);
+  letter-spacing: -.055em;
+  line-height: .85;
+  margin-left: -.06em;
+}
+.hero-lead {
+  margin-top: 2rem;
+  max-width: 30ch;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
+}
+.hero-actions { margin-top: 2.25rem; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+
+.hero-plan { margin: 0; position: relative; }
+.plan { width: 100%; height: auto; display: block; overflow: visible; }
+
+.plan .wall-out { fill: none; stroke: var(--graphite); stroke-width: 8; }
+.plan .wall-in  { fill: none; stroke: var(--graphite); stroke-width: 4; }
+.plan .door, .plan .furniture { fill: none; stroke: var(--cobalt); stroke-width: 1.2; }
+.plan .window rect { fill: var(--paper); stroke: var(--graphite); stroke-width: 1.2; }
+.plan .window rect.gap { stroke: none; }
+.plan .window path { stroke: var(--graphite); stroke-width: .8; fill: none; }
+.plan .dim path { stroke: var(--pencil); stroke-width: .8; fill: none; }
+.plan .dim text { fill: var(--pencil); font-size: 10px; font-family: var(--font); }
+.plan .room text {
+  fill: var(--graphite); font-size: 11px; font-family: var(--font); font-weight: 400;
+  text-anchor: middle;
+}
+.plan .room .area { fill: var(--pencil); font-weight: 300; font-size: 10px; }
+
+/* Единственная анимация на странице: план прорисовывается один раз */
+.js .plan .draw { stroke-dasharray: 2200; stroke-dashoffset: 2200; }
+.js .plan .window, .js .plan .room, .js .plan .dim, .js .stamp { opacity: 0; }
+.js.drawn .plan .draw { animation: draw 2.4s cubic-bezier(.6, .1, .3, 1) forwards; }
+.js.drawn .plan .wall-in { animation-delay: .5s; }
+.js.drawn .plan .door { animation-delay: 1.1s; }
+.js.drawn .plan .furniture { animation-delay: 1.3s; }
+.js.drawn .plan .window, .js.drawn .plan .dim { animation: fade .6s 1.6s forwards; }
+.js.drawn .plan .room, .js.drawn .stamp { animation: fade .8s 2.2s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .plan .draw { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .js .plan .window, .js .plan .room, .js .plan .dim, .js .stamp { opacity: 1; }
+  .js.drawn * { animation: none !important; }
+}
+
+/* Штамп чертежа */
+.stamp {
+  position: absolute; right: 0; bottom: -2.5rem;
+  border-collapse: collapse;
+  font-size: .75rem; line-height: 1.3;
+  background: var(--paper);
+}
+.stamp td { border: 1px solid var(--graphite); padding: .3em .7em; }
+.stamp td:first-child { color: var(--pencil); }
+
+/* ---------- Секции ---------- */
+.section {
+  max-width: var(--max); margin: 0 auto;
+  padding: clamp(72px, 12vw, 160px) var(--gutter) 0;
+}
+.section-title {
+  font-size: clamp(2.4rem, 5vw, 4.25rem);
+  letter-spacing: -.035em;
+}
+.section-lead {
+  margin-top: 1.25rem;
+  max-width: 52ch;
+  font-size: 1.15rem;
+  color: var(--graphite);
+}
+
+/* Проекты */
+.projects {
+  margin-top: clamp(40px, 6vw, 80px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(48px, 6vw, 96px) clamp(24px, 3vw, 48px);
+}
+.project-img {
+  background: var(--paper-2);
+  aspect-ratio: 4 / 3;
+  display: grid; place-items: center;
+  padding: 6%;
+}
+.project-img svg { width: 100%; height: 100%; }
+.project-img img { width: 100%; height: 100%; object-fit: cover; }
+.ln { fill: none; stroke: var(--cobalt); stroke-width: 1.4; }
+.ln.thick { stroke: var(--graphite); stroke-width: 3; }
+.ln.thin { stroke-width: .9; }
+.ln.hatch { stroke: var(--pencil); stroke-width: .8; }
+g.ln * { fill: none; }
+
+.project-info { margin-top: 1.25rem; }
+.project-info h3 { font-size: 1.6rem; letter-spacing: -.02em; font-weight: 400; }
+.project-info p { margin-top: .6rem; max-width: 44ch; }
+.project-info dl {
+  margin: 1rem 0 0;
+  display: grid; grid-template-columns: auto 1fr; gap: .1rem 1.25rem;
+  font-size: .95rem;
+}
+.project-info dt { color: var(--pencil); }
+.project-info dd { margin: 0; }
+
+.p-wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+}
+.p-wide .project-img { aspect-ratio: 16 / 10; }
+.p-wide .project-info { margin-top: 0; }
+.p-wide .project-info h3 { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+/* второй широкий проект зеркально: текст слева */
+.p-wide:last-child { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+.p-wide:last-child .project-info { order: -1; }
+
+/* Услуги */
+.services {
+  margin-top: clamp(40px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(24px, 5vw, 96px);
+}
+.service { padding: 2rem 0 2.25rem; border-top: 1px solid var(--pencil); }
+.service h3 { font-size: 1.55rem; font-weight: 400; letter-spacing: -.015em; }
+.service p { margin-top: .75rem; max-width: 46ch; }
+.service .meta { color: var(--cobalt); font-size: .95rem; margin-top: 1rem; }
+
+/* Как работаем */
+.process {
+  list-style: none; padding: 0;
+  margin: clamp(40px, 6vw, 72px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  counter-reset: step;
+}
+.process li { counter-increment: step; }
+.process li::before {
+  content: counter(step);
+  display: block;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 200;
+  line-height: 1;
+  color: var(--cobalt);
+  margin-bottom: 1.25rem;
+}
+.process h3 { font-size: 1.3rem; font-weight: 400; }
+.process p { margin-top: .6rem; }
+
+/* О бюро */
+.about-body {
+  margin-top: clamp(32px, 5vw, 56px);
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 1.5rem clamp(24px, 5vw, 96px);
+}
+.about-quote {
+  grid-row: span 2;
+  font-size: clamp(1.7rem, 3.2vw, 2.9rem);
+  line-height: 1.2;
+  letter-spacing: -.025em;
+  max-width: 20ch;
+}
+.about-body p:not(.about-quote) { max-width: 44ch; }
+
+/* Контакты */
+.contact { padding-bottom: clamp(72px, 10vw, 140px); }
+.contact-title {
+  font-size: clamp(2.6rem, 7vw, 6.5rem);
+  letter-spacing: -.045em;
+  font-weight: 200;
+  max-width: 14ch;
+}
+.contact-links {
+  margin-top: 2.5rem;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem 2rem;
+  font-size: 1.1rem;
+}
+
+.footer {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding: 24px var(--gutter) 32px;
+  font-size: .9rem; color: var(--pencil);
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; align-items: start; min-height: 0; padding-top: 6vh; }
+  .hero-plan { margin-top: 1rem; margin-bottom: 3rem; }
+  .process { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 3rem; }
+}
+
+@media (max-width: 720px) {
+  .nav { display: none; }
+  .topbar .btn-small { margin-left: auto; }
+  .projects, .services { grid-template-columns: 1fr; }
+  .p-wide, .p-wide:last-child { grid-template-columns: 1fr; }
+  .p-wide:last-child .project-info { order: 0; }
+  .p-wide .project-info { margin-top: 1.25rem; }
+  .about-body { grid-template-columns: 1fr; }
+  .about-quote { grid-row: auto; }
+  .stamp { position: static; margin: 1.25rem 0 0 auto; }
+  .hero-plan { margin-bottom: 0; }
+}
+
+@media (max-width: 480px) {
+  .process { grid-template-columns: 1fr; }
+}
